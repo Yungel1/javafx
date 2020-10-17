@@ -2,6 +2,7 @@ package ehu.isad;
 
 import ehu.isad.controllers.LiburuKud;
 import ehu.isad.controllers.XehetasunakKud;
+import ehu.isad.utils.Sarea;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,6 +20,9 @@ public class Liburuak extends Application {
 
     private XehetasunakKud xehetasunakKud;
     private LiburuKud liburuKud;
+
+    private Sarea sarea=new Sarea();
+    private Book liburua;
 
     private Scene sceneLiburuak;
     private Scene sceneXehetasunak;
@@ -50,6 +54,7 @@ public class Liburuak extends Application {
     }
 
     public void xehetasunakErakutsi() {
+        xehetasunakKud.datuakSartu();
         stage.setScene(sceneXehetasunak);
         stage.show();
     }
@@ -57,6 +62,19 @@ public class Liburuak extends Application {
     public void liburuakErakutsi(){
         stage.setScene(sceneLiburuak);
         stage.show();
+    }
+
+    public void isbnKudeatu(Book book){
+        try {
+            liburua = sarea.readFromUrl(book.getIsbn());
+
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+    }
+
+    public Book getLiburua(){
+        return this.liburua;
     }
 
     public static void main(String[] args) {

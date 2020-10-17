@@ -15,6 +15,14 @@ public class Book {
         this.title = title;
     }
 
+    public String getTitle(){
+        return this.title;
+    }
+
+    public String getIsbn(){return this.isbn;}
+
+    public Details getDetails(){return this.details;}
+
     @Override
     public String toString() {
         return "Book{" +

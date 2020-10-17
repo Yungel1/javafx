@@ -1,5 +1,6 @@
 package ehu.isad.controllers;
 
+import ehu.isad.Book;
 import ehu.isad.Liburuak;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,6 +29,15 @@ public class XehetasunakKud implements Initializable {
 
     public void setLiburuakApp(Liburuak liburuak) {
         this.liburuakApp = liburuak;
+    }
+
+    public void datuakSartu(){
+        Book liburua = liburuakApp.getLiburua();
+        if(liburua!=null) {
+            this.izenburuaLabel.setText(liburua.getDetails().getTitle());
+            this.argitaletxeaLabel.setText(String.valueOf(liburua.getDetails().getArgitaletxe()));
+            this.orrikopLabel.setText(String.valueOf(liburua.getDetails().getOrriKop()));
+        }
     }
 
     @FXML
