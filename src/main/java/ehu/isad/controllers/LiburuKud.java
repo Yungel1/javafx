@@ -2,6 +2,7 @@ package ehu.isad.controllers;
 
 import ehu.isad.Book;
 import ehu.isad.Liburuak;
+import ehu.isad.dbcontroller.ZerbitzuKud;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,6 +14,7 @@ import javafx.util.StringConverter;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class LiburuKud implements Initializable {
@@ -26,15 +28,12 @@ public class LiburuKud implements Initializable {
     private ComboBox<Book> liburuakComboB;
 
     public void initializeComboBox(){
+
+        List<Book> liburuakList = ZerbitzuKud.getInstance().lortuZerbitzuak();
+        ObservableList<Book> liburuak = FXCollections.observableArrayList(liburuakList);
+
+        liburuakComboB.setItems(liburuak);
         this.setConverterComboBox();
-        ObservableList<Book> books = FXCollections.observableArrayList();
-        books.addAll(
-                new Book("1491910399", "R for Data Science"),
-                new Book("1491946008", "Fluent Python"),
-                new Book("9781491906187", "Data Algorithms")
-        );
-        liburuakComboB.setItems(books);
-        liburuakComboB.setEditable(false);
         liburuakComboB.getSelectionModel().selectFirst();
 
     }

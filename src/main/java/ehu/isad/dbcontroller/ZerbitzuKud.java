@@ -1,5 +1,7 @@
 package ehu.isad.dbcontroller;
 
+import ehu.isad.Book;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,21 +18,19 @@ public class ZerbitzuKud {
     private ZerbitzuKud() {
     }
 
-    public List<String> lortuZerbitzuak() {
+    public List<Book> lortuZerbitzuak() {
 
-        String query = "select id, izena from services";
+        String query = "select isbn,izenburua from liburuak";
         DBKudeatzaile dbKudeatzaile = DBKudeatzaile.getInstantzia();
         ResultSet rs = dbKudeatzaile.execSQL(query);
 
-        List<String> emaitza = new ArrayList<>();
+        List<Book> emaitza = new ArrayList<>();
         try {
             while (rs.next()) {
-
-                int kodea = rs.getInt("id");
-                String izena = rs.getString("izena");
-
-                System.out.println(kodea + ":" + izena);
-                emaitza.add(izena);
+                String isbn=rs.getString("isbn");
+                String izenburua = rs.getString("izenburua");
+                Book book=new Book(isbn,izenburua);
+                emaitza.add(book);
 
             }
         } catch(SQLException throwables){
@@ -39,28 +39,5 @@ public class ZerbitzuKud {
 
         return emaitza;
     }
-    public void ezabatuZerbitzua(String izena){
-        String query = "delete from services where izena like '"+izena+"';";
-        DBKudeatzaile dbKudeatzaile = DBKudeatzaile.getInstantzia();
-        dbKudeatzaile.execSQL(query);
 
-    }
-
-    private int idLortu(String izena) throws SQLException {
-        int id = 1;
-        String query;
-        DBKudeatzaile dbKudeatzaile;
-        ResultSet rs;
-        boolean kokatuta = false;
-        while (!kokatuta) {
-            query = "select izena from services where id="+id+";";
-            dbKudeatzaile = DBKudeatzaile.getInstantzia();
-            rs = dbKudeatzaile.execSQL(query);
-            if(!rs.next()){
-                kokatuta=true;
-            }
-            else{id++;}
-        }
-        return id;
-    }
 }
