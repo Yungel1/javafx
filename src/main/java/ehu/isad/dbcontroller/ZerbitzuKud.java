@@ -39,5 +39,25 @@ public class ZerbitzuKud {
 
         return emaitza;
     }
-
+    public Book liburuaLortu(String isbn) throws SQLException {
+        String query = "select izenburua,irudia,argitaletxea,orriKop from liburuak where liburuak.isbn like '"+isbn+"';";
+        DBKudeatzaile dbKudeatzaile = DBKudeatzaile.getInstantzia();
+        ResultSet rs = dbKudeatzaile.execSQL(query);
+        rs.next();
+        if(rs.getString("argitaletxea")==null){
+            return null;
+        }
+        else{
+            Book book=new Book(isbn,rs.getString("izenburua"));
+            book.setDatuak(rs.getString("izenburua"),rs.getString("irudia"),
+                    rs.getString("argitaletxea"),rs.getInt("orriKop"));
+            return book;
+        }
+    }
+    public void beteLiburua(Book book,String isbn){
+        String query = "update liburuak set argitaletxea=\""+book.getDetails().getArgitaletxe()+
+                "\",orriKop="+book.getDetails().getOrriKop()+" where isbn='"+isbn+"';";
+        DBKudeatzaile dbKudeatzaile = DBKudeatzaile.getInstantzia();
+        dbKudeatzaile.execSQL(query);
+    }
 }

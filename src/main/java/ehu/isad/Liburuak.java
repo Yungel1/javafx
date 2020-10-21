@@ -2,6 +2,7 @@ package ehu.isad;
 
 import ehu.isad.controllers.LiburuKud;
 import ehu.isad.controllers.XehetasunakKud;
+import ehu.isad.dbcontroller.ZerbitzuKud;
 import ehu.isad.utils.Sarea;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class Liburuak extends Application {
 
@@ -64,12 +66,16 @@ public class Liburuak extends Application {
         stage.show();
     }
 
-    public void isbnKudeatu(Book book){
-        try {
-            liburua = sarea.readFromUrl(book.getIsbn());
+    public void isbnKudeatu(Book book) throws SQLException {
+        liburua=ZerbitzuKud.getInstance().liburuaLortu(book.getIsbn());
+        if(liburua==null) {
+            try {
+                liburua = sarea.readFromUrl(book.getIsbn());
 
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+            ZerbitzuKud.getInstance().beteLiburua(liburua,book.getIsbn());
         }
     }
 

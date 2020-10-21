@@ -14,6 +14,7 @@ import javafx.util.StringConverter;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -62,7 +63,11 @@ public class LiburuKud implements Initializable {
     @FXML
     void onClick(ActionEvent event) throws IOException {
         Book book = liburuakComboB.getValue();
-        liburuakApp.isbnKudeatu(book);
+        try {
+            liburuakApp.isbnKudeatu(book);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         liburuakApp.xehetasunakErakutsi();
     }
 
