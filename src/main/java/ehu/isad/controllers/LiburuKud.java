@@ -61,7 +61,7 @@ public class LiburuKud implements Initializable {
     }
 
     @FXML
-    void onClick(ActionEvent event) {
+    void onClick(ActionEvent event) throws IOException {
         Book book = liburuakComboB.getValue();
         liburuakApp.isbnKudeatu(book);
         liburuakApp.xehetasunakErakutsi();

@@ -53,7 +53,7 @@ public class Liburuak extends Application {
         xehetasunakKud.setLiburuakApp(this);
     }
 
-    public void xehetasunakErakutsi() {
+    public void xehetasunakErakutsi() throws IOException {
         xehetasunakKud.datuakSartu();
         stage.setScene(sceneXehetasunak);
         stage.show();

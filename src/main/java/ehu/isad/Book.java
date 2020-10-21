@@ -23,6 +23,8 @@ public class Book {
 
     public Details getDetails(){return this.details;}
 
+    public String getThumbnail_url(){return this.thumbnail_url;};
+
     @Override
     public String toString() {
         return "Book{" +
