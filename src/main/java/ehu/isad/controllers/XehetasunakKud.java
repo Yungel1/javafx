@@ -55,15 +55,18 @@ public class XehetasunakKud implements Initializable {
             this.izenburuaLabel.setText(liburua.getDetails().getTitle());
             this.argitaletxeaLabel.setText(String.valueOf(liburua.getDetails().getArgitaletxe()));
             this.orrikopLabel.setText(String.valueOf(liburua.getDetails().getOrriKop()));
+            Image irudia;
             if(liburua.getThumbnail_url()!=null) {
                 String url = liburua.getThumbnail_url();
                 url = url.replace("-S", "-M");
-                Image irudia = this.createImage(url);
-                this.gordeIrudia(url);
+                irudia = this.createImage(url);
                 this.irudiaIV.setImage(irudia);
+                this.gordeIrudia(url);
             }
             else{
-
+                String path = this.lortuIrudiPath();
+                irudia = new Image("file:///"+path);
+                this.irudiaIV.setImage(irudia);
             }
         }
     }
@@ -71,13 +74,16 @@ public class XehetasunakKud implements Initializable {
     private void gordeIrudia(String url) throws IOException {
         String izena=liburuakApp.urlZatitu(url);
         Properties properties= Utils.lortuEzarpenak();
-        String path=properties.getProperty("imagePath")+izena;/*
-        File file=new File(path,izena);
-        ImageIO.write((RenderedImage) irudia, "jpg", file);*/
-
+        String path=properties.getProperty("imagePath")+izena;
         try(InputStream in = new URL(url).openStream()){
             Files.copy(in, Paths.get(path));}
 
+    }
+
+    private String lortuIrudiPath(){
+        Properties properties= Utils.lortuEzarpenak();
+        String path= liburuakApp.getLiburua().getDetails().getIrudia();
+        return path;
     }
 
 

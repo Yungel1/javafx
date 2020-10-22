@@ -26,6 +26,7 @@ public class Book {
     public String getThumbnail_url(){return this.thumbnail_url;};
 
     public void setDatuak(String pIzenburua, String pIrudia, String pArgitaletxea, int pOrriKop){
+        details=new Details();
         details.setNumber_of_pages(pOrriKop);
         details.setPublishers(pArgitaletxea);
         details.setTitle(pIzenburua);

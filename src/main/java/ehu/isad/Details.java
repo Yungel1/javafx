@@ -11,13 +11,17 @@ public class Details {
     String title;
     String irudia;
 
+    public Details(){
+
+    }
+
     public String getArgitaletxe(){return publishers[0];}
 
     public Integer getOrriKop(){return this.number_of_pages;}
 
     public String getTitle(){return this.title;}
 
-    //public String getIrudia(){return this.irudia;}
+    public String getIrudia(){return this.irudia;}
 
     public void setPublishers(String pArgitaletxea){
         this.publishers=new String[10];
