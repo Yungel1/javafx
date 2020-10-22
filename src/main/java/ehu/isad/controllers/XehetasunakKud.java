@@ -2,6 +2,7 @@ package ehu.isad.controllers;
 
 import ehu.isad.Book;
 import ehu.isad.Liburuak;
+import ehu.isad.utils.Utils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,10 +11,13 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 public class XehetasunakKud implements Initializable {
@@ -45,11 +49,14 @@ public class XehetasunakKud implements Initializable {
             this.izenburuaLabel.setText(liburua.getDetails().getTitle());
             this.argitaletxeaLabel.setText(String.valueOf(liburua.getDetails().getArgitaletxe()));
             this.orrikopLabel.setText(String.valueOf(liburua.getDetails().getOrriKop()));
+            //Irudia scenean sartu
             String url=liburua.getThumbnail_url();
             url=url.replace("-S","-M");
-            this.irudiaIV.setImage(this.createImage(url));
+            Image irudia=this.createImage(url);
+            this.irudiaIV.setImage(irudia);
         }
     }
+
 
     private Image createImage(String url) throws IOException {
         URLConnection conn = new URL(url).openConnection();

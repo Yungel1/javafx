@@ -54,9 +54,10 @@ public class ZerbitzuKud {
             return book;
         }
     }
-    public void beteLiburua(Book book,String isbn){
+    public void beteLiburua(Book book,String isbn,String irudia){
         String query = "update liburuak set argitaletxea=\""+book.getDetails().getArgitaletxe()+
-                "\",orriKop="+book.getDetails().getOrriKop()+" where isbn='"+isbn+"';";
+                "\",orriKop="+book.getDetails().getOrriKop()+",irudia='"+irudia+"'" +
+                " where isbn='"+isbn+"';";
         DBKudeatzaile dbKudeatzaile = DBKudeatzaile.getInstantzia();
         dbKudeatzaile.execSQL(query);
     }

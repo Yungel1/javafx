@@ -32,10 +32,10 @@ public class Details {
         this.title=pIzenb;
     }
 
-    /*public void setIrudia(String pIrudia){
+    public void setIrudia(String pIrudia){
         Properties properties= Utils.lortuEzarpenak();
         this.irudia=properties.getProperty("imagePath")+pIrudia;
-    }*/
+    }
 
     @Override
     public String toString() {

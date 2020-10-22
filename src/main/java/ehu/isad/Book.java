@@ -29,7 +29,7 @@ public class Book {
         details.setNumber_of_pages(pOrriKop);
         details.setPublishers(pArgitaletxea);
         details.setTitle(pIzenburua);
-        //details.setIrudia(pIrudia);
+        details.setIrudia(pIrudia);
     }
 
     @Override
