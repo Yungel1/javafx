@@ -65,7 +65,7 @@ public class Liburuak extends Application {
         stage.setScene(sceneLiburuak);
         stage.show();
     }
-    private String irudiaGorde(String url) {
+    public String urlZatitu(String url) {
         String[] zatiak = url.split("/");
         return zatiak[zatiak.length-1];
     }
@@ -79,7 +79,9 @@ public class Liburuak extends Application {
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
-            ZerbitzuKud.getInstance().beteLiburua(liburua,book.getIsbn(),this.irudiaGorde(liburua.getThumbnail_url()));
+            String url=this.urlZatitu(liburua.getThumbnail_url());
+            url= url.replace("-S", "-M");
+            ZerbitzuKud.getInstance().beteLiburua(liburua,book.getIsbn(),url);
         }
     }
 

@@ -11,14 +11,20 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageInputStream;
+import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Properties;
 import java.util.ResourceBundle;
+import java.awt.image.BufferedImage;
 
 public class XehetasunakKud implements Initializable {
 
@@ -49,12 +55,29 @@ public class XehetasunakKud implements Initializable {
             this.izenburuaLabel.setText(liburua.getDetails().getTitle());
             this.argitaletxeaLabel.setText(String.valueOf(liburua.getDetails().getArgitaletxe()));
             this.orrikopLabel.setText(String.valueOf(liburua.getDetails().getOrriKop()));
-            //Irudia scenean sartu
-            String url=liburua.getThumbnail_url();
-            url=url.replace("-S","-M");
-            Image irudia=this.createImage(url);
-            this.irudiaIV.setImage(irudia);
+            if(liburua.getThumbnail_url()!=null) {
+                String url = liburua.getThumbnail_url();
+                url = url.replace("-S", "-M");
+                Image irudia = this.createImage(url);
+                this.gordeIrudia(url);
+                this.irudiaIV.setImage(irudia);
+            }
+            else{
+
+            }
         }
+    }
+
+    private void gordeIrudia(String url) throws IOException {
+        String izena=liburuakApp.urlZatitu(url);
+        Properties properties= Utils.lortuEzarpenak();
+        String path=properties.getProperty("imagePath")+izena;/*
+        File file=new File(path,izena);
+        ImageIO.write((RenderedImage) irudia, "jpg", file);*/
+
+        try(InputStream in = new URL(url).openStream()){
+            Files.copy(in, Paths.get(path));}
+
     }
 
 
