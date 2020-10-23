@@ -81,7 +81,6 @@ public class XehetasunakKud implements Initializable {
     }
 
     private String lortuIrudiPath(){
-        Properties properties= Utils.lortuEzarpenak();
         String path= liburuakApp.getLiburua().getDetails().getIrudia();
         return path;
     }

@@ -9,5 +9,4 @@ build
 gradle
 
 /src/main/resources/setup.properties
-/src/main/resources/liburutegia.sql
 /src/main/irudiak/
