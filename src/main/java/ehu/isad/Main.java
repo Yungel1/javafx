@@ -1,7 +1,8 @@
 package ehu.isad;
 
 import ehu.isad.controllers.*;
-import ehu.isad.utils.Sarea;
+import ehu.isad.dbcontroller.BozkatuDBKud;
+//import ehu.isad.utils.Sarea;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class Main extends Application {
 
@@ -22,11 +24,13 @@ public class Main extends Application {
     private HerrHautatuKud hhKud;
     private ErroreaKud errorKud;
 
-    private Sarea sarea=new Sarea();
+//    private Sarea sarea=new Sarea();
 
     private Scene sceneHasiera;
     private Scene sceneHH;
     private Scene sceneErrorea;
+
+    private Herrialdea herrialdea;
 
 
     @Override
@@ -93,9 +97,18 @@ public class Main extends Application {
         stage.show();
     }
     public void erroreaErakutsi(){
-        stage.setTitle("inguruko informazioa");
+        stage.setTitle(herrialdea.getIzena()+"-(r)en inguruko informazioa");
+        errorKud.herrialdeaSartu();
         stage.setScene(sceneErrorea);
         stage.show();
+    }
+
+    public void setHerrialdea(Herrialdea herrialdea) {
+        this.herrialdea = herrialdea;
+    }
+
+    public Herrialdea getHerrialdea(){
+        return this.herrialdea;
     }
 
     public static void main(String[] args) {

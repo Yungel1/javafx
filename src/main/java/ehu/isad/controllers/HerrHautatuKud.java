@@ -1,10 +1,9 @@
 package ehu.isad.controllers;
 
-import ehu.isad.Book;
 import ehu.isad.Herrialdea;
 import ehu.isad.Main;
+import ehu.isad.dbcontroller.BozkatuDBKud;
 import ehu.isad.dbcontroller.HerrialdeDBKud;
-import ehu.isad.dbcontroller.ZerbitzuKud;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,8 +12,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
+import javafx.util.StringConverter;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -32,8 +33,15 @@ public class HerrHautatuKud implements Initializable {
     private Button OkBTN;
 
     @FXML
-    void onClick(ActionEvent event) {
-        mainApp.erroreaErakutsi();
+    void onClick(ActionEvent event) throws SQLException {
+        Herrialdea herrialde=herrialdeCB.getValue();
+        if(BozkatuDBKud.getInstance().bozkatuDu(herrialde)){
+            mainApp.setHerrialdea(herrialde);
+            mainApp.erroreaErakutsi();
+        }
+        else {
+            //TODO
+        }
     }
 
     public void setMainApp(Main main) {
@@ -48,8 +56,26 @@ public class HerrHautatuKud implements Initializable {
         herrialdeCB.getSelectionModel().selectFirst();
     }
 
+    private void setConverterComboBox(){
+        herrialdeCB.setConverter(new StringConverter<Herrialdea>(){
+            @Override
+            public String toString(Herrialdea herrialde){
+                if(herrialde==null){
+                    return "";
+                }
+                return herrialde.getIzena();
+            }
+
+            @Override
+            public Herrialdea fromString(String string){
+                return null;
+            }
+        });
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        setConverterComboBox();
         cbInitialize();
     }
 }

@@ -1,6 +1,2 @@
-dbname=
-user=
-password=
-useSSL=FALSE
-serverTimezone=Europe/Madrid
+dbpath=
 imagePath=

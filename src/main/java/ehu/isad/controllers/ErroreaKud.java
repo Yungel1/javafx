@@ -29,16 +29,19 @@ public class ErroreaKud implements Initializable {
 
     @FXML
     void onClick(ActionEvent event) {
-
+        mainApp.hhErakutsi();
     }
 
     public void setMainApp(Main main) {
         mainApp=main;
     }
 
+    public void herrialdeaSartu() {
+        testuaLabel.setText(mainApp.getHerrialdea().getIzena()+"-k jada banatu ditu bere puntuak.");
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
     }
 }
 

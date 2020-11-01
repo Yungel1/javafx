@@ -1,6 +1,5 @@
 package ehu.isad.dbcontroller;
 
-import ehu.isad.Book;
 import ehu.isad.Herrialdea;
 
 import java.sql.ResultSet;
@@ -21,7 +20,8 @@ public class HerrialdeDBKud {
 
     public List<Herrialdea> herrialdeakLortu() {
 
-        String query = "select izena,bandera,tv from Herrialde";
+        String query = "select h.izena,h.bandera,h.tv from Herrialde h,ParteHartzea ph where " +
+                "ph.izena=h.izena and etorrikoDa='BAI' and urtea=strftime('%Y','now')";
         DBKudeatzaile dbKudeatzaile = DBKudeatzaile.getInstantzia();
         ResultSet rs = dbKudeatzaile.execSQL(query);
 
