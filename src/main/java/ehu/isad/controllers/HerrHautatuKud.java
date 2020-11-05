@@ -40,7 +40,7 @@ public class HerrHautatuKud implements Initializable {
             mainApp.erroreaErakutsi();
         }
         else {
-            //TODO
+            mainApp.bozkaketakErakutsi();
         }
     }
 

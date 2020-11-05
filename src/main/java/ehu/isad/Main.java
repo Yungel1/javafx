@@ -17,18 +17,24 @@ public class Main extends Application {
     private Parent UI1;
     private Parent UI2;
     private Parent UI3;
+    private Parent UI4;
+    private Parent UI5;
 
     private Stage stage;
 
     private HasieraKud hasieraKud;
     private HerrHautatuKud hhKud;
     private ErroreaKud errorKud;
+    private BozkaketakKud bozkKud;
+    private TOP3Kud top3Kud;
 
 //    private Sarea sarea=new Sarea();
 
     private Scene sceneHasiera;
     private Scene sceneHH;
     private Scene sceneErrorea;
+    private Scene sceneBozk;
+    private Scene sceneTOP3;
 
     private Herrialdea herrialdea;
 
@@ -43,11 +49,13 @@ public class Main extends Application {
         stage.show();
     }
 
-    private void pantailakKargatu(){
+    private void pantailakKargatu() throws IOException {
 
         this.pantailaHasiera();
         this.pantailaHerrHautatu();
         this.pantailaErrorea();
+        this.pantailaBozkaketak();
+        this.pantailaTOP3();
     }
 
     private void pantailaHasiera(){
@@ -86,6 +94,30 @@ public class Main extends Application {
         errorKud.setMainApp(this);
     }
 
+    private void pantailaBozkaketak(){
+        FXMLLoader loaderBozk = new FXMLLoader(getClass().getResource("/Bozkaketak.fxml"));
+        try {
+            UI4 = (Parent) loaderBozk.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        this.sceneBozk=new Scene(UI4);
+        bozkKud = loaderBozk.getController();
+        bozkKud.setMainApp(this);
+    }
+
+    private void pantailaTOP3(){
+        FXMLLoader loaderTOP3 = new FXMLLoader(getClass().getResource("/TOP3.fxml"));
+        try {
+            UI5 = (Parent) loaderTOP3.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        this.sceneTOP3=new Scene(UI5);
+        top3Kud = loaderTOP3.getController();
+        top3Kud.setMainApp(this);
+    }
+
 //    public void hasieraErakutsi(){
 //        stage.setTitle("Eurovision");
 //        stage.setScene(sceneHasiera);
@@ -100,6 +132,16 @@ public class Main extends Application {
         stage.setTitle(herrialdea.getIzena()+"-(r)en inguruko informazioa");
         errorKud.herrialdeaSartu();
         stage.setScene(sceneErrorea);
+        stage.show();
+    }
+    public void bozkaketakErakutsi(){
+        stage.setTitle("Bozkaketa Panela");
+        stage.setScene(sceneBozk);
+        stage.show();
+    }
+    public void top3Erakutsi(){
+        stage.setTitle("Datuak sartu");
+        stage.setScene(sceneTOP3);
         stage.show();
     }
 
