@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.StringConverter;
 
@@ -35,8 +36,8 @@ public class HerrHautatuKud implements Initializable {
     @FXML
     void onClick(ActionEvent event) throws SQLException {
         Herrialdea herrialde=herrialdeCB.getValue();
+        mainApp.setHerrialdea(herrialde);
         if(BozkatuDBKud.getInstance().bozkatuDu(herrialde)){
-            mainApp.setHerrialdea(herrialde);
             mainApp.erroreaErakutsi();
         }
         else {
@@ -75,6 +76,7 @@ public class HerrHautatuKud implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        euroIMG.setImage(new Image("images/eurobisioa.png"));
         setConverterComboBox();
         cbInitialize();
     }

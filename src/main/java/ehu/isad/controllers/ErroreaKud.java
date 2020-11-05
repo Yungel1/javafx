@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.net.URL;
@@ -42,6 +43,7 @@ public class ErroreaKud implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        euroIMG.setImage(new Image("images/eurobisioa.png"));
     }
 }
 

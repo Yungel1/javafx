@@ -1,5 +1,7 @@
 package ehu.isad;
 
+import javafx.scene.image.Image;
+
 public class Partaidea {
 
     private String izenaH;
@@ -7,11 +9,13 @@ public class Partaidea {
     private String izenaAbes;
     private String bandera;
     private int puntuak;
+    private Image banderaArg;
 
     public Partaidea(String izenaH, String bandera, int puntuak) {
         this.izenaH = izenaH;
         this.bandera = bandera;
         this.puntuak = puntuak;
+        banderaArg=new Image("images/"+bandera+".png");
     }
 
     public Partaidea(String izenaH, String izenArtistikoa, String izenaAbes, String bandera) {
@@ -19,6 +23,11 @@ public class Partaidea {
         this.izenArtistikoa = izenArtistikoa;
         this.izenaAbes = izenaAbes;
         this.bandera = bandera;
+        banderaArg=new Image("images/"+bandera+".png");
+    }
+
+    public void setPuntuak(int pPuntuak){
+        puntuak=pPuntuak;
     }
 
     public String getIzenaH() {
@@ -33,8 +42,8 @@ public class Partaidea {
         return izenaAbes;
     }
 
-    public String getBandera() {
-        return bandera;
+    public Image getBanderaArg() {
+        return banderaArg;
     }
 
     public int getPuntuak(){

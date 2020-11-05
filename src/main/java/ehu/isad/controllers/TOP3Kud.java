@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.net.URL;
@@ -49,7 +50,7 @@ public class TOP3Kud implements Initializable {
         System.exit(0);
     }
 
-    private void labelInitialize() {
+    public void labelInitialize() {
         List<Partaidea> partaideakList= OrdezkatuDBKud.getInstance().top3Lortu();
         ObservableList<Partaidea> partaideak = FXCollections.observableArrayList(partaideakList);
         Partaidea partaidea;
@@ -57,13 +58,15 @@ public class TOP3Kud implements Initializable {
         //Suposatuko da gutxienez 3 partaide egongo direla.
         partaidea=partaideak.get(0);
         top1Label.setText(partaidea.getIzenaH()+" - "+partaidea.getPuntuak());
-
+        top1IMG.setImage(partaidea.getBanderaArg());
 
         partaidea=partaideak.get(1);
         top2Label.setText(partaidea.getIzenaH()+" - "+partaidea.getPuntuak());
+        top2IMG.setImage(partaidea.getBanderaArg());
 
         partaidea=partaideak.get(2);
         top3Label.setText(partaidea.getIzenaH()+" - "+partaidea.getPuntuak());
+        top3IMG.setImage(partaidea.getBanderaArg());
     }
 
     public void setMainApp(Main main) {
@@ -72,6 +75,7 @@ public class TOP3Kud implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        euroIMG.setImage(new Image("images/eurobisioa.png"));
         labelInitialize();
     }
 }

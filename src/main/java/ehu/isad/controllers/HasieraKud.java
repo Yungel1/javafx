@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -33,7 +34,7 @@ public class HasieraKud implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        euroIMG.setImage(new Image("images/eurobisioa.png"));
     }
 }
 

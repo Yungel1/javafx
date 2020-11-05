@@ -37,6 +37,7 @@ public class Main extends Application {
     private Scene sceneTOP3;
 
     private Herrialdea herrialdea;
+    private Partaidea partaidea;
 
 
     @Override
@@ -141,6 +142,7 @@ public class Main extends Application {
     }
     public void top3Erakutsi(){
         stage.setTitle("Datuak sartu");
+        top3Kud.labelInitialize();
         stage.setScene(sceneTOP3);
         stage.show();
     }
@@ -152,6 +154,7 @@ public class Main extends Application {
     public Herrialdea getHerrialdea(){
         return this.herrialdea;
     }
+
 
     public static void main(String[] args) {
         launch(args);

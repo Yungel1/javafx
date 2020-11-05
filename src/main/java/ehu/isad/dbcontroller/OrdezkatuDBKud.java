@@ -64,4 +64,12 @@ public class OrdezkatuDBKud {
         return emaitza;
     }
 
+    public void puntuakEguneratu(int puntuak,String herrialdea){
+        String query = "update ordezkaritza set puntuak=puntuak+"+puntuak+" where " +
+                "herrialdea='"+herrialdea+"'";
+
+        DBKudeatzaile dbKudeatzaile = DBKudeatzaile.getInstantzia();
+        dbKudeatzaile.execSQL(query);
+    }
+
 }

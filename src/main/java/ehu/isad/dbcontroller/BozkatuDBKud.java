@@ -25,4 +25,10 @@ public class BozkatuDBKud {
         return rs.next();
     }
 
+    public void bozkatu(String nork,String nori,int puntuak){
+        String query = "insert into Bozkaketa values('"+nori+"','"+nork+"',strftime('%Y','now'),"+puntuak+")";
+        DBKudeatzaile dbKudeatzaile = DBKudeatzaile.getInstantzia();
+        dbKudeatzaile.execSQL(query);
+    }
+
 }
