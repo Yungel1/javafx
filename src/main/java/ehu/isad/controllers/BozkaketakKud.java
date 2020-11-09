@@ -58,15 +58,37 @@ public class BozkaketakKud implements Initializable {
 
     @FXML
     void onClick(ActionEvent event) {
-        mainApp.top3Erakutsi();
+
+        int i=0;
+        int puntuak=0;
+        while(i<bozTaula.getItems().size()&&puntuak<5){
+            Partaidea partaidea=bozTaula.getItems().get(i);
+            puntuak=puntuak+partaidea.getPuntuak();
+            i++;
+        }
+        if(puntuak==5) {
+            sartuDB();
+            mainApp.top3Erakutsi();
+        }
+    }
+
+    private void sartuDB(){
+        int i=0;
+        while(i<bozTaula.getItems().size()) {
+            Partaidea partaidea=bozTaula.getItems().get(i);
+            if(partaidea.getPuntuak()!=0) {
+                OrdezkatuDBKud.getInstance().puntuakEguneratu(partaidea.getPuntuak(), partaidea.getIzenaH());
+                BozkatuDBKud.getInstance().bozkatu(mainApp.getHerrialdea().getIzena(), partaidea.getIzenaH()
+                        , partaidea.getPuntuak());
+            }
+            i++;
+        }
     }
 
     private void taulaInitialize(){
         List<Partaidea> partaideakList=OrdezkatuDBKud.getInstance().partaideInfoLortu();
         partaideak = FXCollections.observableArrayList(partaideakList);
 
-
-        //TODO
     }
 
     public void setMainApp(Main main) {
@@ -86,18 +108,28 @@ public class BozkaketakKud implements Initializable {
         puntuakT.setCellValueFactory(new PropertyValueFactory<>("puntuak"));
 
 
-        puntuakT.setCellFactory(
-                TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        Callback<TableColumn<Partaidea, Integer>, TableCell<Partaidea, Integer>> defaultTextFieldCellFactory
+                = TextFieldTableCell.forTableColumn(new IntegerStringConverter());
 
+        puntuakT.setCellFactory(col -> {
+            TableCell<Partaidea, Integer> cell = defaultTextFieldCellFactory.call(col);
+
+            cell.setOnMouseClicked(event -> {
+                if (!cell.isEmpty()) {
+                    if (cell.getTableView().getSelectionModel().getSelectedItem().getIzenaH().equals(mainApp.getHerrialdea().getIzena())) {
+                        cell.setEditable(false);
+                    } else {
+                        cell.setEditable(true);
+                    }
+                }
+            });
+            return cell;
+        });
 
         puntuakT.setOnEditCommit(
                 t -> {
-                    Partaidea partaidea=t.getTableView().getItems().get(t.getTablePosition().getRow());
-                    if(!partaidea.getIzenaH().equals(mainApp.getHerrialdea().getIzena())) {
-                        OrdezkatuDBKud.getInstance().puntuakEguneratu(t.getNewValue(), partaidea.getIzenaH());
-                        BozkatuDBKud.getInstance().bozkatu(mainApp.getHerrialdea().getIzena(),partaidea.getIzenaH()
-                                , t.getNewValue());
-                    }
+                    t.getTableView().getItems().get(t.getTablePosition().getRow())
+                            .setPuntuak(t.getNewValue());
                 }
         );
 
